@@ -1,0 +1,257 @@
+
+!
+version 12.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname POOCLAGOS_MTN_E1
+!
+boot-start-marker
+boot-end-marker
+!
+card type e1 0 2
+logging buffered 51200 warnings
+enable secret 5 $1$VWC5$MzMCnl9vCZAmipEq.JPlX/
+!
+no aaa new-model
+no network-clock-participate wic 2 
+!
+!
+ip cef
+!
+!
+no ip domain lookup
+ip domain name poocng.local
+ip auth-proxy max-nodata-conns 3
+ip admission max-nodata-conns 3
+ip sla monitor responder
+ip sla monitor 12
+ type jitter dest-ipaddr 192.168.16.2 dest-port 17000
+ tos 32
+ owner POOC
+ tag LAGOS_TO_WARRI
+ frequency 300
+ip sla monitor schedule 12 start-time now
+ip sla monitor 40080
+ type jitter dest-ipaddr 192.168.16.2 dest-port 17000 source-ipaddr 192.168.16.1 num-packets 100
+ request-data-size 100
+ tos 32
+ timeout 180000
+ owner SW.IpSla.BCX-PC.SolarWindsOrion
+ frequency 300
+ip sla monitor schedule 40080 life forever start-time now ageout 3600
+ip sla monitor 40081
+ type jitter dest-ipaddr 172.20.4.252 dest-port 17000 source-ipaddr 172.20.0.252 num-packets 100
+ request-data-size 100
+ tos 184
+ timeout 180000
+ owner SW.IpSla.BCX-PC.SolarWindsOrion
+ frequency 300
+ip sla monitor schedule 40081 life forever start-time now ageout 3600
+ip sla monitor 40082
+ type tcpConnect dest-ipaddr 172.20.4.252 dest-port 80 source-ipaddr 172.20.0.252
+ timeout 180000
+ owner SW.IpSla.BCX-PC.SolarWindsOrion
+ frequency 300
+ip sla monitor schedule 40082 life forever start-time now ageout 3600
+ip sla monitor 40083
+ type jitter dest-ipaddr 172.20.6.247 dest-port 17000 source-ipaddr 172.20.0.252 num-packets 100
+ request-data-size 100
+ tos 184
+ timeout 180000
+ owner SW.IpSla.BCX-PC.SolarWindsOrion
+ frequency 300
+ip sla monitor schedule 40083 life forever start-time now ageout 3600
+ip sla monitor 40084
+ type tcpConnect dest-ipaddr 172.20.6.247 dest-port 80 source-ipaddr 172.20.0.252
+ timeout 180000
+ owner SW.IpSla.BCX-PC.SolarWindsOrion
+ frequency 300
+ip sla monitor schedule 40084 life forever start-time now ageout 3600
+ip sla monitor 40085
+ type jitter dest-ipaddr 172.20.4.252 dest-port 17000 source-ipaddr 172.20.0.252 codec g711ulaw codec-numpackets 100
+ tos 184
+ timeout 180000
+ owner SW.IpSla.BCX-PC.SolarWindsOrion
+ frequency 300
+ip sla monitor schedule 40085 life forever start-time now ageout 3600
+ip sla monitor 40086
+ type jitter dest-ipaddr 172.20.6.247 dest-port 17000 source-ipaddr 172.20.0.252 codec g711ulaw codec-numpackets 100
+ tos 184
+ timeout 180000
+ owner SW.IpSla.BCX-PC.SolarWindsOrion
+ frequency 300
+ip sla monitor schedule 40086 life forever start-time now ageout 3600
+ip sla monitor 40087
+ type udpEcho dest-ipaddr 172.20.4.252 dest-port 7 source-ipaddr 172.20.0.252
+ timeout 180000
+ owner SW.IpSla.BCX-PC.SolarWindsOrion
+ frequency 300
+ip sla monitor schedule 40087 life forever start-time now ageout 3600
+ip sla monitor 40088
+ type udpEcho dest-ipaddr 172.20.6.247 dest-port 7 source-ipaddr 172.20.0.252
+ timeout 180000
+ owner SW.IpSla.BCX-PC.SolarWindsOrion
+ frequency 300
+ip sla monitor schedule 40088 life forever start-time now ageout 3600
+ip sla monitor 40089
+ type echo protocol ipIcmpEcho 172.20.6.247
+ frequency 300
+ip sla monitor schedule 40089 life forever start-time now
+!
+!
+voice-card 0
+ no dspfarm
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-4219468065
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-4219468065
+ revocation-check none
+ rsakeypair TP-self-signed-4219468065
+!
+!
+crypto pki certificate chain TP-self-signed-4219468065
+ certificate self-signed 01
+  3082024F 308201B8 A0030201 02020101 300D0609 2A864886 F70D0101 04050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 34323139 34363830 3635301E 170D3039 30353231 31353539 
+  32395A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D34 32313934 
+  36383036 3530819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281 
+  81009AAF F271E1B6 EBC439D8 B2538FF5 EE3B8AF6 E5861386 07E33912 CDB07127 
+  FDA43450 96515EAD 24AA48A7 DFAF520C 859DCF14 C193409E CD20748B B69DD213 
+  F314D995 8D641D5F C99DB8DF 3A04F062 3F5D87B4 005BEB9F 6B48632D A57DA032 
+  EEC9BFF8 5E1911CD 3C167280 3197FDD0 B7952A4D 0CFFF916 0C34CA59 1EA053CB 
+  F2A30203 010001A3 77307530 0F060355 1D130101 FF040530 030101FF 30220603 
+  551D1104 1B301982 17796F75 726E616D 652E796F 7572646F 6D61696E 2E636F6D 
+  301F0603 551D2304 18301680 1409EA75 41280897 57B7D9F0 CB72BA5D D6F94B7A 
+  97301D06 03551D0E 04160414 09EA7541 28089757 B7D9F0CB 72BA5DD6 F94B7A97 
+  300D0609 2A864886 F70D0101 04050003 81810098 BF89C5EF F98D7D36 0324116E 
+  DEBE19E4 78891030 5CA29245 78F23C05 E89F7F3A 5404F7DF E7304E71 7BE8A4B4 
+  A6C64942 9FD54026 E03A0A9A DFFAA9A0 81DCC0E3 8FC4F171 22E0B467 65BD7A3E 
+  753AC818 98528CA0 4BB385AB 6DB00D8D 7DB97A51 319840DC 41E38606 08F2A591 
+  F6F18A36 2C2DCE45 053A8014 D7B3E59A 8FCCB3
+  quit
+username admin password 7 0103260A772B015F32
+!
+!
+controller E1 0/2/0
+ framing NO-CRC4 
+ channel-group 0 timeslots 1-31
+ description ##MTN_E1_CIRCUIT_2_PANWARRI##
+!
+controller E1 0/2/1
+ framing NO-CRC4 
+ channel-group 0 timeslots 1-31
+ description ##MTN_E1_CIRCUIT_2_GASPLANT##
+!
+ip ssh time-out 100
+! 
+!
+!
+!
+!
+interface FastEthernet0/0
+ description "PANLAGOS_LAN"
+ no ip address
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/0.1
+ encapsulation dot1Q 1 native
+ ip address 172.20.0.252 255.255.255.0
+!
+interface FastEthernet0/0.220
+ encapsulation dot1Q 220
+ ip address 192.168.20.252 255.255.255.0
+!
+interface FastEthernet0/0.300
+ encapsulation dot1Q 300
+ ip address 172.20.1.249 255.255.255.0
+!
+interface FastEthernet0/1
+ ip address 192.168.15.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface Serial0/2/0:0
+ description ##MTN_E1_CIRCUIT_2_PANWARRI##
+ ip address 192.168.16.1 255.255.255.252
+ ip route-cache flow
+!
+interface Serial0/2/1:0
+ description ##MTN_E1_CIRCUIT_2_PANGASPLANT##
+ no ip address
+ ip route-cache flow
+!
+router eigrp 10
+ network 172.20.0.0
+ network 192.168.15.0 0.0.0.3
+ network 192.168.16.0 0.0.0.3
+ network 192.168.20.0
+ no auto-summary
+!
+router eigrp 4
+ network 172.20.0.0 0.0.0.255
+ network 192.168.15.0
+ network 192.168.16.0
+ network 192.168.20.0
+ no auto-summary
+!
+ip forward-protocol nd
+!
+ip flow-export version 5
+ip flow-export destination 172.20.0.235 9999
+!
+no ip http server
+no ip http secure-server
+!
+snmp-server community public RO
+snmp-server community private RW
+snmp-server enable traps syslog
+snmp-server host 192.168.20.132 version 2c private 
+snmp-server host 192.168.20.132 version 2c public 
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ password 7 120925193E2B0B5439
+ login
+line aux 0
+line vty 0 4
+ password 7 00143308287B0C561C
+ login local
+ transport input ssh
+line vty 5 15
+ privilege level 15
+ login local
+ transport input all
+!
+scheduler allocate 20000 1000
+!
+end

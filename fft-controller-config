@@ -1,0 +1,184 @@
+# WLC Config Begin <Wed Dec 27 14:08:55 2017>
+
+transfer upload filename fft-controller-config 
+transfer upload serverip 192.168.20.1 
+transfer upload username packetfencer 
+transfer upload datatype config 
+transfer upload path ./ 
+transfer upload encrypt password 1 7adc951e98b8d7c99a48ea243c918ef6 7742745f5f6e65cb310634abbc475b4000f2209c 48 facc3b2394865a7c248da891b13f92b337cb5d50f60ce92d670d488925c3650364ecce31e0ff2bade8029922b3df2716 
+transfer upload port 22 
+transfer download filename fft-controller-config 
+transfer download serverip 192.168.20.1 
+transfer download username packetfencer 
+transfer download datatype webauthbundle 
+transfer download path ./ 
+transfer download encrypt password 1 7adc951e98b8d7c99a48ea243c918ef6 7742745f5f6e65cb310634abbc475b4000f2209c 48 facc3b2394865a7c248da891b13f92b337cb5d50f60ce92d670d488925c3650364ecce31e0ff2bade8029922b3df2716 
+transfer download port 22 
+config network telnet enable 
+config network rf-network-name default 
+config network webmode enable 
+config network multicast global enable 
+config network multicast igmp snooping enable 
+config network multicast l2mcast disable service-port 
+config network multicast l2mcast disable virtual 
+config 802.11a cac voice sip codec g711 sample-interval 20 
+config 802.11a cac voice sip bandwidth 64 sample-interval 20 
+config avc profile youtube-policy rule add application edonkey-static drop 
+config avc profile youtube-policy rule add application encrypted-bittorrent drop 
+config avc profile youtube-policy rule add application airplay drop 
+config avc profile youtube-policy rule add application livestation drop 
+config avc profile youtube-policy rule add application netflix drop 
+config avc profile youtube-policy rule add application bittorrent drop 
+config avc profile youtube-policy rule add application bittorrent-networking drop 
+config avc profile youtube-policy rule add application edonkey drop 
+config avc profile youtube-policy rule add application youtube drop 
+config avc profile youtube-policy create 
+config country GB,NG,US 
+config ap packet-dump truncate 0 
+config ap packet-dump buffer-size 2048 
+config ap packet-dump capture-time 10 
+config ap preferred-mode ipv4 all 
+config sys-nas FFT_Controller 
+config certificate generate webadmin 
+config netuser add encrypt username napims2 password 1 83cb227e4cd6c49dc3b9c4de9a5e0bc9 d98e85236e9b2ea40356cd59ce40b8069dd39470 16 b0d802a0923120ac609a06aa7393409e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 wlan 2 usertype guest lifetime 604800 description user2 
+config netuser add encrypt username napims1 password 1 d070569e29d3b61fada57434107ae072 8b5c4dccb5e849b0b8af7070039408eb81caebc0 16 38a5badc64c136bffed146b744e85b3a0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 wlan 2 usertype guest lifetime 604800 description user1 
+config netuser add encrypt username napims3 password 1 0d3102dd13c0bcca263324ecb5f0a202 bd0e7a92f8d64a322e1c70fade0e612c49d26971 16 a3afa2013cf5eda420c181fc7730d8a00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 wlan 2 usertype guest lifetime 604800 description user3 
+config netuser add encrypt username napims4 password 1 0fce4345fb976c33f9d8cae03c75141e 833e09f1ba42c5979879ba4877670016ffa96798 16 39e1cb05497092620767fd3bc415a1f60000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 wlan 2 usertype guest lifetime 604800 description user4 
+config netuser add encrypt username napims5 password 1 fd8dde6e51a16a1e64580555ec85c61b c87432232103ffd29fc204af7484c4e09727a058 16 c47a7ae58df72bf3ba642aa4403bfb480000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 wlan 2 usertype guest lifetime 604800 description user5 
+config netuser add encrypt username napims6 password 1 d0b82d95ad52f6c114d54a44608abeeb e4ef30e0229cf94d9baeccce452446751eaa871a 16 3babe1e896fe76b97f8e07615b67db160000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 wlan 2 usertype guest lifetime 604800 description user6 
+config netuser add encrypt username napims7 password 1 bf1663a32d22cd1bca6d0bcd68527fe7 85a84c2061b75ba82694085d91a1a9a270e404d8 16 6b7055e34192e4fcf6c34a75589985100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 wlan 2 usertype guest lifetime 604800 
+config netuser add encrypt username napims8 password 1 e8203e7265c8086653f57781e69590c5 7636b691cfa87f5af542560cb92d33b117d59de2 16 ab645505a228623ea4665db48af873560000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 wlan 2 usertype guest lifetime 604800 description user8 
+config netuser add encrypt username napims9 password 1 297c9bab9dd23c81f9c39ea6c62836b0 a90c8f2e1ee9ac7518ecc4c0e5a7f299deef098b 16 26600ae41353210e20519ff726e7f9520000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 wlan 2 usertype guest lifetime 604800 description user9 
+config netuser add encrypt username napims10 password 1 f6bf27c32df17ca4ff5bd811e117eb5b 2221c564f63316940d664edfce4b0b2ef6ee7ce1 16 86a37ee43025b854000c84eb417473130000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 wlan 2 usertype guest lifetime 604800 description user10 
+config mdns profile service add default-mdns-profile AirTunes 
+config mdns profile service add default-mdns-profile Airplay 
+config mdns profile service add default-mdns-profile HP_Photosmart_Printer_1 
+config mdns profile service add default-mdns-profile HP_Photosmart_Printer_2 
+config mdns profile service add default-mdns-profile HomeSharing 
+config mdns profile service add default-mdns-profile Printer-IPP 
+config mdns profile service add default-mdns-profile Printer-IPPS 
+config mdns profile service add default-mdns-profile Printer-LPD 
+config mdns profile service add default-mdns-profile Printer-SOCKET 
+config mdns profile create default-mdns-profile 
+config mdns service origin all AirTunes 
+config mdns service create AirTunes _raop._tcp.local. origin all lss disable 
+config mdns service origin all Airplay 
+config mdns service create Airplay _airplay._tcp.local. origin all lss disable 
+config mdns service origin all HP_Photosmart_Printer_1 
+config mdns service query enable HP_Photosmart_Printer_1 
+config mdns service create HP_Photosmart_Printer_1 _universal._sub._ipp._tcp.local. origin all lss disable query enable 
+config mdns service origin all HP_Photosmart_Printer_2 
+config mdns service query enable HP_Photosmart_Printer_2 
+config mdns service create HP_Photosmart_Printer_2 _cups._sub._ipp._tcp.local. origin all lss disable query enable 
+config mdns service origin all HomeSharing 
+config mdns service query enable HomeSharing 
+config mdns service create HomeSharing _home-sharing._tcp.local. origin all lss disable query enable 
+config mdns service origin all Printer-IPP 
+config mdns service create Printer-IPP _ipp._tcp.local. origin all lss disable 
+config mdns service origin all Printer-IPPS 
+config mdns service create Printer-IPPS _ipps._tcp.local. origin all lss disable 
+config mdns service origin all Printer-LPD 
+config mdns service create Printer-LPD _printer._tcp.local. origin all lss disable 
+config mdns service origin all Printer-SOCKET 
+config mdns service create Printer-SOCKET _pdl-datastream._tcp.local. origin all lss disable 
+config wlan wmm allow 1 
+config wlan session-timeout 1 1800 
+config wlan mfp client enable 1 
+config wlan wmm allow 2 
+config wlan avc 2 visibility enable 
+config wlan avc 2 profile youtube-policy enable 
+config wlan session-timeout 2 1800 
+config wlan mfp client enable 2 
+config wlan security wpa akm psk set-key hex encrypt 1 a85648f8a2c48db5438c70ef472454c9 2b5fdd44eb6c568015c7403abbb6a1d1749bb467 48 0b19dbb4697055065982794116fb16a44c9e85694f509745d744c457f742d3582249ec21bd0a245f2d4e5cc46c40a793000000000000000000000001000000001450396c00000000000000010000000000000001000000001333dea8000000001aeacc5800000000150d0000000000000000012d00000000000000010000000000000000000000001aeacc5800000000 1 
+config wlan security wpa akm psk enable 1 
+config wlan security wpa akm 802.1x disable 1 
+config wlan security wpa enable 1 
+config wlan security web-auth server-precedence 1 local radius ldap 
+config wlan create 1 FFT FFT 
+config wlan security wpa wpa2 ciphers aes disable 2 
+config wlan security wpa wpa2 disable 2 
+config wlan security wpa akm 802.1x disable 2 
+config wlan security wpa disable 2 
+config wlan security web-passthrough acl 2 PreAuthForExtWebServ 
+config wlan security web-auth server-precedence 2 local radius ldap 
+config wlan security web-auth acl 2 PreAuthForExtWebServ 
+config wlan security web-auth enable 2 
+config wlan create 2 FFT_GUEST FFT_GUEST 
+config wlan exclusionlist 1 60 
+config wlan exclusionlist 2 60 
+config wlan broadcast-ssid enable 1 
+config wlan broadcast-ssid enable 2 
+config wlan custom-web login-page login.html 2 
+config wlan custom-web global disable 2 
+config wlan custom-web ext-webauth-url http://172.20.0.119/redirect.html 2 
+config wlan custom-web loginfailure-page logout.html 2 
+config wlan custom-web webauth-type customized 2 
+config wlan qos 1 platinum 
+config wlan interface 1 management 
+config wlan enable 1 
+config wlan qos 2 platinum 
+config wlan interface 2 guest 
+config custom-web ext-webauth-url http://172.20.0.119/redirect.html 
+config custom-web logout-popup disable 
+config custom-web redirecturl http://www.google.com 
+config custom-web webauth-type customized 
+config sysname FFT_Controller 
+config advanced 802.11a channel add 36 
+config advanced 802.11a channel add 40 
+config advanced 802.11a channel add 44 
+config advanced 802.11a channel add 48 
+config advanced 802.11a channel add 52 
+config advanced 802.11a channel add 56 
+config advanced 802.11a channel add 60 
+config advanced 802.11a channel add 64 
+config advanced 802.11a channel add 149 
+config advanced 802.11a channel add 153 
+config advanced 802.11a channel add 157 
+config advanced 802.11a channel add 161 
+config advanced probe-limit 2 500 
+config advanced probe limit 2 500 
+config advanced 802.11b channel add 1 
+config advanced 802.11b channel add 6 
+config advanced 802.11b channel add 11 
+config auth-list add mic 64:f6:9d:ee:83:cf 
+config acl rule add PreAuthForExtWebServ 1 
+config acl rule source address PreAuthForExtWebServ 1 172.20.0.119 255.255.255.255 
+config acl rule source port range PreAuthForExtWebServ 1 0 65535 
+config acl rule protocol PreAuthForExtWebServ 1 6 
+config acl rule direction PreAuthForExtWebServ 1 out 
+config acl rule destination port range PreAuthForExtWebServ 1 0 65535 
+config acl rule action PreAuthForExtWebServ 1 permit 
+config acl rule add PreAuthForExtWebServ 2 
+config acl rule source port range PreAuthForExtWebServ 2 0 65535 
+config acl rule protocol PreAuthForExtWebServ 2 6 
+config acl rule direction PreAuthForExtWebServ 2 in 
+config acl rule destination address PreAuthForExtWebServ 2 172.20.0.119 255.255.255.255 
+config acl rule destination port range PreAuthForExtWebServ 2 0 65535 
+config acl rule action PreAuthForExtWebServ 2 permit 
+config acl rule add PreAuthForExtWebServ 65 
+config acl rule source port range PreAuthForExtWebServ 65 0 65535 
+config acl rule destination port range PreAuthForExtWebServ 65 0 65535 
+config acl create PreAuthForExtWebServ 
+config acl apply PreAuthForExtWebServ 
+config database size 2048 
+config interface address management 172.22.0.245 255.255.254.0 172.22.0.191 
+config interface vlan management 601 
+config interface address service-port 192.168.1.1 255.255.255.0 
+config interface address virtual 1.1.1.1 
+config interface address dynamic-interface guest 172.22.2.245 255.255.255.0 172.22.2.191 
+config interface vlan guest 602 
+config interface dhcp management primary 192.168.20.1 
+config interface port management 1 
+config interface dhcp service-port disable 
+config interface create guest 602 
+config interface dhcp dynamic-interface guest primary 192.168.20.1 
+config interface port guest 1 
+config mgmtuser add encrypt Admin 1 cbd08329673d547fd312b4dbc7a2ab74 346d5c8ce6f480e089fec211f8f34b6b14742091 16 409bbb262a0184cb63e95625f12d45a80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 read-write 
+config mgmtuser telnet Admin enable 
+config switchconfig strong-pwd lockout time mgmtuser 5 
+config switchconfig strong-pwd lockout attempts mgmtuser 3 
+config 802.11b cac voice sip codec g711 sample-interval 20 
+config 802.11b cac voice sip bandwidth 64 sample-interval 20 
+config 802.11b 11gsupport enable 
+
+# WLC Config End <Wed Dec 27 14:09:02 2017>

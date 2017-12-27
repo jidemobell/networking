@@ -1,0 +1,427 @@
+
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname distribution_fibre
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$eBBd$i7sfTQYQs7EabYPoOnYnw/
+!
+username admin password 7 021605481811003348
+no aaa new-model
+switch 1 provision ws-c3750x-24s
+system mtu routing 1500
+ip routing
+!
+ip dhcp excluded-address 172.20.141.1 172.20.141.50
+ip dhcp excluded-address 172.20.131.1 172.20.131.50
+ip dhcp excluded-address 172.20.121.1 172.20.121.50
+ip dhcp excluded-address 172.20.111.1 172.20.111.50
+ip dhcp excluded-address 172.20.101.1 172.20.101.50
+ip dhcp excluded-address 172.20.91.1 172.20.91.50
+ip dhcp excluded-address 172.20.81.1 172.20.81.50
+ip dhcp excluded-address 172.20.11.1 172.20.11.50
+!
+ip dhcp pool 14TH_FLR_VOICE_VLAN
+   network 172.20.141.0 255.255.255.0
+   domain-name poocng.local
+   dns-server 192.168.20.1 
+   default-router 172.20.141.1 
+   option 150 ip 192.168.20.66 192.168.20.67 
+!
+ip dhcp pool 13TH_FLR_VOICE_VLAN
+   network 172.20.131.0 255.255.255.0
+   domain-name poocng.local
+   dns-server 192.168.20.1 
+   default-router 172.20.131.1 
+   option 150 ip 192.168.20.66 192.168.20.67 
+!
+ip dhcp pool 12TH_FLR_VOICE_VLAN
+   network 172.20.121.0 255.255.255.0
+   domain-name poocng.local
+   dns-server 192.168.20.1 
+   default-router 172.20.121.1 
+   option 150 ip 192.168.20.66 192.168.20.67 
+!
+ip dhcp pool 11TH_FLR_VOICE_VLAN
+   network 172.20.111.0 255.255.255.0
+   domain-name poocng.local
+   dns-server 192.168.20.1 
+   default-router 172.20.111.1 
+   option 150 ip 192.168.20.66 192.168.20.67 
+!
+ip dhcp pool 10TH_FLR_VOICE_VLAN
+   network 172.20.101.0 255.255.255.0
+   domain-name poocng.local
+   dns-server 192.168.20.1 
+   default-router 172.20.101.1 
+   option 150 ip 192.168.20.66 192.168.20.67 
+!
+ip dhcp pool 9TH_FLR_VOICE_VLAN
+   network 172.20.91.0 255.255.255.0
+   domain-name poocng.local
+   dns-server 192.168.20.1 
+   default-router 172.20.91.1 
+   option 150 ip 192.168.20.66 192.168.20.67 
+!
+ip dhcp pool 8TH_FLR_VOICE_VLAN
+   network 172.20.81.0 255.255.255.0
+   domain-name poocng.local
+   dns-server 192.168.20.1 
+   default-router 172.20.81.1 
+   option 150 ip 192.168.20.66 192.168.20.67 
+!
+ip dhcp pool GRD_FLR_VOICE_VLAN
+   network 172.20.11.0 255.255.255.0
+   domain-name poocng.local
+   dns-server 192.168.20.1 
+   default-router 172.20.11.1 
+   option 150 ip 192.168.20.96 192.168.20.97 
+!
+!
+ip name-server 62.173.34.222
+ip name-server 192.168.20.1
+!
+!
+crypto pki trustpoint TP-self-signed-3050779776
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3050779776
+ revocation-check none
+ rsakeypair TP-self-signed-3050779776
+!
+!
+crypto pki certificate chain TP-self-signed-3050779776
+ certificate self-signed 01
+  3082024A 308201B3 A0030201 02020101 300D0609 2A864886 F70D0101 04050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 33303530 37373937 3736301E 170D3933 30333031 30303031 
+  32395A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 30353037 
+  37393737 3630819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281 
+  8100ACD8 3A1B0BFB D1FE4365 2EEAC162 18AF948C 6DE3AF49 76583709 C8FE010C 
+  8F369376 FFD22691 48920F66 DFFC8B49 CD1BED3F 533973E9 10F399BF 2794444E 
+  9E29E397 E2DD7EA4 0B97776B EBCFBB0C C502991B DB89D1A0 112DE79D F8563B80 
+  8AC9EC54 BBF3B6B0 A4D3CDC1 9E1B9C43 4476248E C33867CF B87B5EFA 4D028F43 
+  E7390203 010001A3 72307030 0F060355 1D130101 FF040530 030101FF 301D0603 
+  551D1104 16301482 12646973 74726962 7574696F 6E5F6669 62726530 1F060355 
+  1D230418 30168014 A57BEAB4 FB5D2A4D 8BFEFAF1 67758577 129216EC 301D0603 
+  551D0E04 160414A5 7BEAB4FB 5D2A4D8B FEFAF167 75857712 9216EC30 0D06092A 
+  864886F7 0D010104 05000381 81003681 CB87D104 D41ABF2B 4A61EB29 B4FCF694 
+  1D6CFDF9 174B7A84 D295532F 4081F988 896A9251 4093B465 233E1619 888A7E33 
+  B61B2747 879DC180 9663402A 8692B4C4 B231B37A 616962EF 4D3715E4 2C0A578A 
+  74B0E73E AE5EA38B ADE4CF04 FD83C3A9 966B9CF8 3A786A1D 0CD83EC9 2C7AE30A 
+  BD035E02 5554AB46 90A7024A 07C5
+  	quit
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+!
+!
+!
+vlan internal allocation policy ascending
+!
+!
+!
+!
+!
+!
+!
+interface FastEthernet0
+ no ip address
+ no ip route-cache cef
+ no ip route-cache
+ shutdown
+!
+interface GigabitEthernet1/0/1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/3
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/4
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/5
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/6
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/7
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/8
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/9
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/10
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/11
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/12
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/13
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/14
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/15
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/16
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/17
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/18
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/19
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/20
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/21
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/22
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/23
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/24
+ description CONNECTION TO ASA ON G0/0
+ switchport access vlan 550
+ switchport trunk encapsulation dot1q
+ switchport mode access
+!
+interface GigabitEthernet1/1/1
+!
+interface GigabitEthernet1/1/2
+!
+interface GigabitEthernet1/1/3
+!
+interface GigabitEthernet1/1/4
+!
+interface TenGigabitEthernet1/1/1
+!
+interface TenGigabitEthernet1/1/2
+!
+interface Vlan1
+ ip address 172.20.0.191 255.255.255.0
+ ip helper-address 192.168.20.1
+!
+interface Vlan2
+ description **packetfence reg vlan**
+ ip address 192.168.2.253 255.255.255.0
+!
+interface Vlan3
+ description **packetfence isolation vlan**
+ ip address 192.168.3.253 255.255.255.0
+!
+interface Vlan10
+ description **packetfence default vlan**
+ ip address 172.20.10.1 255.255.255.0
+ ip helper-address 192.168.20.1
+!
+interface Vlan11
+ description GROUND FLOOR VOICE
+ ip address 172.20.11.1 255.255.255.0
+!
+interface Vlan80
+ description **8TH FLOOR DATA VLAN**
+ ip address 172.20.80.1 255.255.255.0
+ ip helper-address 192.168.20.1
+!
+interface Vlan81
+ description **8TH FLOOR VOICE VLAN**
+ ip address 172.20.81.1 255.255.255.0
+!
+interface Vlan90
+ description **9TH FLOOR DATA VLAN**
+ ip address 172.20.90.1 255.255.255.0
+ ip helper-address 192.168.20.1
+!
+interface Vlan91
+ description **9TH FLOOR VOICE VLAN**
+ ip address 172.20.91.1 255.255.255.0
+!
+interface Vlan100
+ description **10TH FLOOR DATA VLAN**
+ ip address 172.20.100.1 255.255.255.0
+ ip helper-address 192.168.20.1
+!
+interface Vlan101
+ description **10TH FLOOR VOICE VLAN**
+ ip address 172.20.101.1 255.255.255.0
+!
+interface Vlan110
+ description **11TH FLOOR DATA VLAN**
+ ip address 172.20.110.1 255.255.255.0
+ ip helper-address 192.168.20.1
+!
+interface Vlan111
+ description **11TH FLOOR VOICE VLAN**
+ ip address 172.20.111.1 255.255.255.0
+!
+interface Vlan120
+ description **12TH FLOOR DATA VLAN**
+ ip address 172.20.120.1 255.255.255.0
+ ip helper-address 192.168.20.1
+!
+interface Vlan121
+ description **12TH FLOOR VOICE VLAN**
+ ip address 172.20.121.1 255.255.255.0
+!
+interface Vlan130
+ description **13TH FLOOR DATA VLAN**
+ ip address 172.20.130.1 255.255.255.0
+ ip helper-address 192.168.20.1
+!
+interface Vlan131
+ description **13TH FLOOR VOICE VLAN**
+ ip address 172.20.131.1 255.255.255.0
+!
+interface Vlan140
+ description **14TH FLOOR DATA VLAN**
+ ip address 172.20.140.1 255.255.255.0
+ ip helper-address 192.168.20.1
+!
+interface Vlan141
+ description **14TH FLOOR VOICE VLAN**
+ ip address 172.20.141.1 255.255.255.0
+!
+interface Vlan220
+ description ** SERVER VLAN SVI **
+ ip address 192.168.20.253 255.255.255.0
+!
+interface Vlan250
+ ip address 172.20.20.195 255.255.255.0
+!
+interface Vlan300
+ ip address 172.20.1.250 255.255.255.0
+!
+interface Vlan400
+ description WIRELESS SVI
+ ip address 172.21.0.88 255.255.0.0
+ ip helper-address 192.168.20.1
+!
+interface Vlan500
+ ip address 172.40.8.191 255.255.255.0
+ ip helper-address 172.40.8.253
+!
+interface Vlan550
+ description ASA INSIDE SVI
+ ip address 172.20.255.1 255.255.255.248
+!
+interface Vlan600
+ description NEW DATA VLAN
+ ip address 172.20.14.251 255.255.255.0
+ ip helper-address 192.168.20.1
+!
+interface Vlan601
+ description WLC SVI
+ ip address 172.22.0.191 255.255.254.0
+ ip helper-address 192.168.20.1
+!
+interface Vlan602
+ description Guest SVI
+ ip address 172.22.2.191 255.255.255.0
+ ip helper-address 192.168.20.1
+!
+interface Vlan700
+ description NEWCROSS VLAN
+ ip address 172.20.15.200 255.255.255.0
+ ip helper-address 192.168.20.1
+!
+interface Vlan750
+ description **NewcrossEP Vlan**
+ ip address 172.20.16.253 255.255.255.0
+!
+interface Vlan900
+ description ##accesscard##
+ ip address 192.168.0.253 255.255.255.0
+!
+interface Vlan1000
+ description ** MGMT VLAN**
+ ip address 172.20.254.1 255.255.255.0
+!
+!
+router eigrp 4
+ network 10.0.0.0
+ network 172.20.0.0
+ network 172.20.0.0 0.0.0.255
+ network 172.21.0.0
+ network 172.22.0.0
+ network 192.168.20.0
+ redistribute static
+!
+ip default-gateway 172.20.0.253
+!
+ip http server
+ip http secure-server
+!
+ip route 0.0.0.0 0.0.0.0 172.20.0.253
+!
+logging esm config
+!
+snmp-server community POOC RO
+snmp-server enable traps license
+!
+!
+line con 0
+ exec-timeout 50 0
+ password 7 105E29172937155B1F
+ logging synchronous
+ login
+line vty 0 4
+ exec-timeout 50 0
+ password 7 1315371C272C037A38
+ logging synchronous
+ login
+line vty 5 15
+ login local
+!
+end

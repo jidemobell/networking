@@ -1,0 +1,199 @@
+
+!
+version 12.2
+no service pad
+service timestamps debug uptime
+service timestamps log uptime
+service password-encryption
+!
+hostname Distribution_UTP
+!
+enable secret 5 $1$ddWw$6JmI6wedPmjMI5lzGCcwP1
+!
+username admin password 7 00141215174C04140B
+no aaa new-model
+switch 2 provision ws-c3750g-24ps
+system mtu routing 1500
+ip subnet-zero
+ip routing
+!
+!
+!
+!
+no file verify auto
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+interface GigabitEthernet2/0/1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet2/0/2
+ switchport trunk encapsulation dot1q
+ switchport mode access
+!
+interface GigabitEthernet2/0/3
+ switchport mode access
+!
+interface GigabitEthernet2/0/4
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet2/0/5
+ switchport access vlan 400
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet2/0/6
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet2/0/7
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet2/0/8
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet2/0/9
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet2/0/10
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet2/0/11
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet2/0/12
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet2/0/13
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ shutdown
+!
+interface GigabitEthernet2/0/14
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ shutdown
+!
+interface GigabitEthernet2/0/15
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet2/0/16
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet2/0/17
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet2/0/18
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet2/0/19
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet2/0/20
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet2/0/21
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet2/0/22
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet2/0/23
+ description CONNECTION TO ASA ON G0/0
+ switchport access vlan 550
+ switchport trunk encapsulation dot1q
+ switchport mode access
+!
+interface GigabitEthernet2/0/24
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet2/0/25
+!
+interface GigabitEthernet2/0/26
+!
+interface GigabitEthernet2/0/27
+ description LINK to PH
+ switchport access vlan 219
+!
+interface GigabitEthernet2/0/28
+!
+interface Vlan1
+ ip address 172.20.0.190 255.255.255.0
+ ip helper-address 192.168.20.1
+!
+interface Vlan250
+ ip address 172.20.20.194 255.255.255.0
+!
+interface Vlan300
+ ip address 172.20.1.252 255.255.255.0
+!
+interface Vlan500
+ ip address 172.40.8.190 255.255.255.0
+ ip helper-address 172.40.8.253
+!
+interface Vlan501
+ ip address 172.40.10.190 255.255.255.0
+!
+interface Vlan600
+ description NEW DATA VLAN
+ ip address 172.20.14.252 255.255.255.0
+ ip helper-address 192.168.20.1
+!
+interface Vlan601
+ ip address 172.22.0.190 255.255.254.0
+ ip helper-address 192.168.20.1
+!
+interface Vlan800
+ ip address 192.168.30.190 255.255.255.0
+!
+interface Vlan900
+ ip address 192.168.0.190 255.255.255.0
+!
+interface Vlan1000
+ description ** MGMT VLAN**
+ ip address 172.20.254.2 255.255.255.0
+!
+ip default-gateway 172.20.254.1
+ip classless
+ip route 172.20.0.0 255.255.0.0 172.20.254.1
+ip route 172.21.0.0 255.255.0.0 172.20.254.1
+ip route 192.168.20.0 255.255.255.0 172.20.0.253
+ip http server
+!
+snmp-server community POOC RO
+snmp-server enable traps license
+!
+control-plane
+!
+!
+line con 0
+ password 7 15022B02280A2C743B
+ logging synchronous
+line vty 0 4
+ password 7 15022B02280A2C743B
+ logging synchronous
+ login
+line vty 5 15
+ password 7 1427320520242D7B37
+ login
+!
+end

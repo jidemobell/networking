@@ -1,0 +1,551 @@
+
+!
+version 15.0
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname PANLAGOS_VG
+!
+boot-start-marker
+boot system flash:c3825-adventerprisek9-mz.150-1.M8.bin
+boot-end-marker
+!
+card type e1 0 0
+card type e1 0 3
+logging buffered 51200 warnings
+enable secret 5 $1$iIt9$lknxCnDklBCHnrcMRjrs8.
+!
+no aaa new-model
+!
+!
+!
+clock timezone GMT 2
+network-clock-participate wic 0 
+network-clock-participate wic 3 
+!
+dot11 syslog
+ip source-route
+ip cef
+!
+!
+ip dhcp excluded-address 172.20.1.51
+ip dhcp excluded-address 172.20.1.248 172.20.1.249
+ip dhcp excluded-address 172.20.1.253 172.20.1.254
+!
+ip dhcp pool Voice
+   network 172.20.1.0 255.255.255.0
+   default-router 172.20.1.253 
+   option 150 ip 192.168.20.66 192.168.20.67 
+!
+!
+no ip domain lookup
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+isdn switch-type primary-qsig
+!
+voice-card 0
+ dsp services dspfarm
+!
+!
+!
+voice service voip
+ allow-connections h323 to h323
+ allow-connections h323 to sip
+ allow-connections sip to h323
+ supplementary-service h450.12
+ h323
+ sip
+  registrar server
+!
+!
+voice register global
+ max-dn 500
+ max-pool 350
+!
+voice register dn  1
+ number 3200
+!
+voice register pool  1
+ id mac A87E.33A6.1682
+ number 1 dn 1
+ no digit collect kpml
+ max registrations 185
+!
+!
+voice translation-rule 1
+ rule 1 /3001/ /5000/
+ rule 2 /3000/ /5000/
+!
+voice translation-rule 2
+ rule 1 /08139860005/ /3033/
+!
+voice translation-rule 3
+ rule 1 /245/ /08139860005/
+!
+voice translation-rule 4
+ rule 1 /.*/ /08139850001/
+!
+voice translation-rule 5
+ rule 1 /016313/ /3/
+ rule 2 /016314/ /4/
+!
+voice translation-rule 6
+ rule 1 /245/ /016313003/
+!
+voice translation-rule 7
+ rule 1 /3/ /016313/
+ rule 2 /4/ /016314/
+!
+!
+voice translation-profile 1
+ translate called 1
+!
+voice translation-profile MTN-incoming
+ translate called 2
+!
+voice translation-profile MTN-outgoing
+ translate calling 3
+!
+voice translation-profile TRANSLATE_Extensions
+ translate calling 4
+!
+voice translation-profile ipnx-incoming
+ translate called 5
+!
+voice translation-profile ipnx-outgoing
+ translate calling 6
+!
+voice translation-profile translate_extensions
+ translate calling 7
+!
+!
+crypto pki token default removal timeout 0
+!
+crypto pki trustpoint TP-self-signed-487526865
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-487526865
+ revocation-check none
+ rsakeypair TP-self-signed-487526865
+!
+!
+crypto pki certificate chain TP-self-signed-487526865
+ certificate self-signed 01
+  30820241 308201AA A0030201 02020101 300D0609 2A864886 F70D0101 04050030 
+  30312E30 2C060355 04031325 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 34383735 32363836 35301E17 0D313730 35323132 32303733 
+  305A170D 32303031 30313030 30303030 5A303031 2E302C06 03550403 1325494F 
+  532D5365 6C662D53 69676E65 642D4365 72746966 69636174 652D3438 37353236 
+  38363530 819F300D 06092A86 4886F70D 01010105 0003818D 00308189 02818100 
+  9D82B00B 9AACE47F 07E1CE59 13FCA0E2 09AC26CE 90917610 532E503F F8990EAA 
+  B3498CA1 69AB8BC1 0CA5D377 EF99AAE4 0AC4378C 64513E55 19F7C167 30F83DE9 
+  F27FCAC3 06EDF9E3 4D1F034F B81E88B3 E9A48C30 89035D07 0D524340 7CE0679C 
+  FDC120F9 A4F3AD7F 2DA7704D E22E6135 889E65CA 1D83B600 8DC8F39F CB4929E1 
+  02030100 01A36B30 69300F06 03551D13 0101FF04 05300301 01FF3016 0603551D 
+  11040F30 0D820B50 414E4C41 474F535F 5647301F 0603551D 23041830 168014F6 
+  246FC99B 884DCDAD D3779B5C 03309A21 611C1D30 1D060355 1D0E0416 0414F624 
+  6FC99B88 4DCDADD3 779B5C03 309A2161 1C1D300D 06092A86 4886F70D 01010405 
+  00038181 006443A2 44F4B314 37D1AB45 28DE3052 18CD6CB8 80AB7BD8 63A0721B 
+  DFB0E9BB 4B8C1562 2AB2F903 470D638E 30574290 511E8EA1 0F42E807 AFD68EEB 
+  957D2782 9C192C77 40AD64D2 00CE0C74 1E0D9A64 614A194D BBDDBC90 2BC17732 
+  ADB1A27C A12B54F1 848B3C84 D8BECD47 385144CB E406B653 2B73CB28 84FB768F 
+  440E6327 72
+  	quit
+!
+!
+license udi pid CISCO3825 sn FCZ1406713N
+archive
+ log config
+  hidekeys
+username admin password 7 0103260A772B015F32
+!
+redundancy
+!
+!
+controller E1 0/0/0
+ pri-group timeslots 1-24
+ description CONNECTION TO PBX
+!
+controller E1 0/0/1
+ pri-group timeslots 1-24
+ description CONNECTION TO IPNX
+!
+controller E1 0/3/0
+ pri-group timeslots 1-24
+ description CONNECTION TO MTN
+!
+controller E1 0/3/1
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ description $$TRUNK CONNECTION TO LAN$$
+ no ip address
+ duplex auto
+ speed auto
+ media-type rj45
+ !
+!
+interface GigabitEthernet0/0.1
+ encapsulation dot1Q 1 native
+!
+interface GigabitEthernet0/0.101
+ description $$CONNECTION TO 10TH FLOOR VOICE VLAN$$       
+ encapsulation dot1Q 101
+ ip address 172.20.101.2 255.255.255.0
+!
+interface GigabitEthernet0/0.220
+ description $CONNECTION TO SERVER VLAN$$
+ encapsulation dot1Q 220
+ ip address 192.168.20.240 255.255.255.0
+!
+interface GigabitEthernet0/0.300
+ description $$CONNECTION TO VOICE VLAN$$
+ encapsulation dot1Q 300
+ ip address 172.20.1.253 255.255.255.0
+ ip helper-address 172.20.0.191
+ h323-gateway voip interface
+ h323-gateway voip bind srcaddr 172.20.1.253
+!
+interface GigabitEthernet0/0.600
+ description $CONNECTION TO NEW DATA VLAN$
+ encapsulation dot1Q 600
+ ip address 172.20.14.250 255.255.255.0
+!
+interface GigabitEthernet0/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+ media-type rj45
+ !
+!
+interface Serial0/0/0:15
+ no ip address
+ encapsulation hdlc
+ isdn switch-type primary-qsig
+ isdn incoming-voice voice
+ no cdp enable
+ !
+!
+interface Serial0/0/1:15
+ no ip address
+ encapsulation hdlc
+ isdn switch-type primary-qsig
+ isdn incoming-voice voice
+ isdn bchan-number-order ascending 
+ no cdp enable
+ !
+!
+interface Serial0/3/0:15
+ no ip address
+ encapsulation hdlc
+ isdn switch-type primary-qsig
+ isdn incoming-voice voice
+ no cdp enable
+ !
+!
+!
+router eigrp 4
+ network 172.20.1.0 0.0.0.255
+ network 192.168.20.0
+!
+ip forward-protocol nd
+ip http server
+ip http secure-server
+ip http timeout-policy idle 60 life 86400 requests 10000
+!
+ip flow-export version 5
+ip flow-export destination 192.168.20.32 9999
+!
+!
+!
+!
+!
+!
+snmp-server community POOC RO
+snmp-server community public RO
+snmp-server community private RW
+snmp-server enable traps syslog
+snmp-server host 172.20.0.235 version 2c private 
+snmp-server host 172.20.0.235 version 2c public 
+!
+!
+control-plane
+ !
+!
+!
+voice-port 0/0/0:15
+!
+voice-port 0/3/0:15
+!
+voice-port 0/0/1:15
+ local-alerting
+!
+voice-port 0/2/0
+ connection plar 3300
+ description ****012798969*******
+ caller-id enable
+!
+voice-port 0/2/1
+ connection plar 3300
+ description ****012798968*******
+ caller-id enable
+!
+voice-port 0/2/2
+!
+voice-port 0/2/3
+!
+ccm-manager switchback immediate
+ccm-manager redundant-host 192.168.20.67
+ccm-manager mgcp
+ccm-manager music-on-hold
+!
+mgcp call-agent 192.168.20.66 service-type mgcp version 0.1
+mgcp dtmf-relay voip codec all mode out-of-band
+mgcp bind control source-interface GigabitEthernet0/0.300
+mgcp bind media source-interface GigabitEthernet0/0.300
+!
+mgcp profile default
+!
+sccp local GigabitEthernet0/0.300
+sccp ccm 192.168.20.67 identifier 2 priority 2 version 7.0 
+sccp ccm 192.168.20.66 identifier 1 priority 1 version 7.0 
+sccp
+!
+sccp ccm group 1
+ associate ccm 1 priority 1
+ associate ccm 2 priority 2
+ associate profile 2 register XCONFERENCE
+ associate profile 1 register XCODER
+!
+dspfarm profile 1 transcode  
+ codec g729r8
+ codec g729abr8
+ codec g729ar8
+ codec g711alaw
+ codec g711ulaw
+ maximum sessions 5
+ associate application SCCP
+!
+dspfarm profile 2 conference  
+ codec g711ulaw
+ codec g729r8
+ shutdown
+!
+dial-peer voice 100 pots
+ destination-pattern 68009T
+ port 0/2/0
+ prefix 009
+!
+dial-peer voice 101 pots
+ destination-pattern 69009T
+ port 0/2/1
+ prefix 009
+!
+dial-peer voice 102 pots
+ destination-pattern 68[2-9]......
+ port 0/2/0
+!
+dial-peer voice 103 pots
+ destination-pattern 69[2-9]......
+ port 0/2/1
+!
+dial-peer voice 104 pots
+ destination-pattern 9[2-9]......
+ port 0/0/0:15
+ prefix 9
+!
+dial-peer voice 105 pots
+ destination-pattern 9009T
+ port 0/0/0:15
+ prefix 9009
+!
+dial-peer voice 106 pots
+ destination-pattern 90[7-8-9][0-1]........
+ port 0/0/0:15
+ prefix 90
+!
+dial-peer voice 107 pots
+ destination-pattern 2...
+ port 0/0/0:15
+ prefix 2
+!
+dial-peer voice 111 pots
+ destination-pattern 6[145]009T
+ port 0/0/0:15
+ forward-digits all
+!
+dial-peer voice 112 pots
+ destination-pattern 6[145]0[7-8-9][0-1]........
+ port 0/0/0:15
+ forward-digits all
+!
+dial-peer voice 113 pots
+ destination-pattern 6[145][2-9]......
+ port 0/0/0:15
+ forward-digits all
+!
+dial-peer voice 114 pots
+ destination-pattern 680[7-8-9][0-1]........
+ port 0/2/0
+ prefix 0
+!
+dial-peer voice 115 pots
+ destination-pattern 690[7-8-9][0-1]........
+ port 0/2/1
+ prefix 0
+!
+dial-peer voice 116 pots
+ destination-pattern 0[7-8][0-1]........
+ prefix 0
+!
+dial-peer voice 117 pots
+ destination-pattern 660[7-8-9][0-1]........
+ port 0/0/1:15
+ prefix 0
+!
+dial-peer voice 118 pots
+ destination-pattern 66009T
+ port 0/0/1:15
+ prefix 009
+!
+dial-peer voice 119 pots
+ destination-pattern 66[2-9]......
+ port 0/0/1:15
+ forward-digits 7
+!
+dial-peer voice 200 voip
+ translation-profile outgoing MTN-outgoing
+ destination-pattern [345]...
+ session target ipv4:192.168.20.66
+ dtmf-relay h245-alphanumeric
+!
+dial-peer voice 1 pots
+ translation-profile incoming MTN-incoming
+ incoming called-number .
+ direct-inward-dial
+!
+dial-peer voice 201 voip
+!
+dial-peer voice 203 pots
+ translation-profile outgoing TRANSLATE_Extensions
+ destination-pattern 8009T
+ port 0/3/0:15
+ prefix 009
+!
+dial-peer voice 204 pots
+ destination-pattern 8[2-9]......
+ port 0/3/0:15
+ forward-digits 7
+!
+dial-peer voice 202 pots
+ translation-profile outgoing TRANSLATE_Extensions
+ destination-pattern 80[7-8][0-1]........
+ port 0/3/0:15
+ prefix 0
+!
+dial-peer voice 300 pots
+ destination-pattern 62009T
+ port 0/0/0:15
+ forward-digits all
+!
+dial-peer voice 301 pots
+ destination-pattern 620[7-8][0-1]........
+ port 0/0/0:15
+ forward-digits all
+!
+dial-peer voice 302 pots
+ destination-pattern 62[2-9]......
+ port 0/0/0:15
+ forward-digits all
+!
+dial-peer voice 400 pots
+ translation-profile incoming ipnx-incoming
+ incoming called-number 016.
+ direct-inward-dial
+ port 0/0/1:15
+!
+dial-peer voice 401 voip
+ translation-profile outgoing ipnx-outgoing
+ destination-pattern [345]...
+ session target ipv4:192.168.20.66
+ dtmf-relay h245-alphanumeric
+!
+dial-peer voice 402 pots
+ translation-profile outgoing translate_extensions
+ destination-pattern 44009T
+ port 0/0/1:15
+ prefix 009
+!
+dial-peer voice 403 pots
+ destination-pattern 44[2-9]......
+ port 0/0/1:15
+ forward-digits 7
+!
+dial-peer voice 404 pots
+ translation-profile outgoing translate_extensions
+ destination-pattern 440[7-8][0-1]........
+ port 0/0/1:15
+ prefix 0
+!
+dial-peer voice 120 pots
+ destination-pattern 550[7-8-9][0-1]........
+ port 0/2/0
+ prefix 0
+!
+dial-peer voice 121 pots
+ destination-pattern 560[7-8-9][0-1]........
+ port 0/2/1
+ prefix 0
+!
+dial-peer voice 123 pots
+ destination-pattern 55[2-9]......
+ port 0/2/0
+!
+dial-peer voice 124 pots
+ destination-pattern 56[2-9]......
+ port 0/2/1
+!
+dial-peer voice 125 voip
+ session protocol sipv2
+ dtmf-relay rtp-nte
+!
+!
+!
+!
+line con 0
+ exec-timeout 30 0
+ password 7 03147B052A2F261C5D
+ login
+line aux 0
+ password 7 03347A252A2E06637D
+line vty 0 4
+ exec-timeout 30 0
+ password 7 00143308287B0C561C
+ logging synchronous
+ login local
+ transport input ssh
+line vty 5 15
+ exec-timeout 30 0
+ logging synchronous
+ login local
+ transport input all
+line vty 16 924
+ exec-timeout 30 0
+ logging synchronous
+ login
+!
+scheduler allocate 20000 1000
+end
